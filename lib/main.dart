@@ -1,5 +1,6 @@
 import 'package:dog_dashboard/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -11,15 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'DoggieDash',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blueAccent,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        home: const MyHomePage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }
