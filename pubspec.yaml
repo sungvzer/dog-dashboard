@@ -14,7 +14,7 @@ dependencies:
   git_hooks: ^1.0.1
   dart_pre_commit: ^5.2.1
   skeletonizer: ^0.8.0
-  flutter_riverpod: ^2.4.4
+  flutter_riverpod: ^2.4.5
   dio: ^5.3.3
   dropdown_button2: ^2.3.9
 

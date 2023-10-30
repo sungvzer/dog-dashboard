@@ -1,22 +1,14 @@
 import 'package:dog_dashboard/components/breed_dropdown.dart';
-import 'package:dog_dashboard/models/view_mode.dart';
+import 'package:dog_dashboard/components/view_mode_selector.dart';
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  ViewMode mode = ViewMode.list;
-  String? selectedBreed;
-  String? selectedSubBreed;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -45,46 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   const Spacer(),
-                  ToggleButtons(
-                    direction: Axis.horizontal,
-                    onPressed: (int index) {
-                      setState(() {
-                        if (index == 0) {
-                          mode = ViewMode.single;
-                        } else {
-                          mode = ViewMode.list;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: theme.colorScheme.primary,
-                    selectedColor: theme.colorScheme.background,
-                    borderColor: theme.colorScheme.inversePrimary,
-                    fillColor: theme.colorScheme.primary,
-                    constraints: const BoxConstraints.tightFor(
-                      height: kMinInteractiveDimension,
-                      width: 60,
-                    ),
-                    color: theme.colorScheme.inversePrimary,
-                    isSelected: [
-                      mode == ViewMode.single,
-                      mode == ViewMode.list
-                    ],
-                    children: const <Widget>[
-                      Tooltip(
-                        message: 'Show a single random image',
-                        child: Icon(
-                          Icons.image_rounded,
-                        ),
-                      ),
-                      Tooltip(
-                        message: 'Show a list of images',
-                        child: Icon(
-                          Icons.list_rounded,
-                        ),
-                      ),
-                    ],
-                  ),
+                  const ViewModeSelector(),
                 ],
               ),
               const SizedBox(
@@ -101,15 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   const Spacer(),
-                  MainBreedDropdown(
-                    onSelect: (breed) {
-                      setState(() {
-                        selectedSubBreed = null;
-                        selectedBreed = breed;
-                      });
-                    },
-                    value: selectedBreed,
-                  )
+                  const MainBreedDropdown()
                 ],
               ),
               const SizedBox(
@@ -127,15 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   const Spacer(),
-                  SubBreedDropdown(
-                    onSelect: (selectedValue) {
-                      setState(() {
-                        selectedSubBreed = selectedValue;
-                      });
-                    },
-                    mainBreed: selectedBreed,
-                    value: selectedSubBreed,
-                  ),
+                  const SubBreedDropdown(),
                 ],
               ),
             ],
