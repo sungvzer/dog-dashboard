@@ -27,7 +27,7 @@ class FetchImageData {
   final String? subBreed;
   final ViewMode? viewMode;
 
-  FetchImageData({this.breed, this.subBreed, this.viewMode});
+  FetchImageData({this.breed, this.subBreed, this.viewMode = ViewMode.single});
 }
 
 final fetchImageDataProvider = StateProvider<FetchImageData>(
@@ -38,7 +38,9 @@ final randomBreedImageProvider = FutureProvider<List<String>?>(
   (ref) async {
     final imageData = ref.watch(fetchImageDataProvider);
 
-    if (imageData.breed == null) return null;
+    if (imageData.viewMode == null || imageData.breed == null) {
+      return null;
+    }
 
     final dio = Dio();
 
@@ -51,31 +53,30 @@ final randomBreedImageProvider = FutureProvider<List<String>?>(
         url += 'images/random';
         final response = await dio.get(url);
         if (response.statusCode == 200) {
-          return List<String>.from(response.data['message']);
+          return List<String>.from([response.data['message']]);
         } else {
           throw Exception('Failed to load data from the API');
         }
       } catch (error) {
-        throw Exception('Failed to load data from the API: $error');
+        rethrow;
       }
-    } else {
-      try {
-        String url = '$apiUrl/breed/${imageData.breed}/';
-        if (imageData.subBreed != null) {
-          url += '${imageData.subBreed}/';
-        }
-        url += 'images';
-        final response = await dio.get(url);
-        if (response.statusCode == 200) {
-          final List<String> images =
-              List<String>.from(response.data['message']);
-          return images;
-        } else {
-          throw Exception('Failed to load data from the API');
-        }
-      } catch (error) {
-        throw Exception('Failed to load data from the API: $error');
+    }
+
+    try {
+      String url = '$apiUrl/breed/${imageData.breed}/';
+      if (imageData.subBreed != null) {
+        url += '${imageData.subBreed}/';
       }
+      url += 'images';
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        final List<String> images = List<String>.from(response.data['message']);
+        return images;
+      } else {
+        throw Exception('Failed to load data from the API');
+      }
+    } catch (error) {
+      rethrow;
     }
   },
 );
