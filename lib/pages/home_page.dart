@@ -43,15 +43,19 @@ class MyHomePage extends ConsumerWidget {
               SliverToBoxAdapter(
                 child: Row(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('View mode', style: theme.textTheme.titleMedium),
-                        Text(
-                          'Choose between single and multiple images',
-                          style: theme.textTheme.bodyMedium,
-                        ),
-                      ],
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.tightFor(width: 200),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('View mode', style: theme.textTheme.titleMedium),
+                          Text(
+                            'Choose between single and multiple images!',
+                            style: theme.textTheme.bodyMedium,
+                            softWrap: true,
+                          ),
+                        ],
+                      ),
                     ),
                     const Spacer(),
                     const ViewModeSelector(),
@@ -66,13 +70,19 @@ class MyHomePage extends ConsumerWidget {
               SliverToBoxAdapter(
                 child: Row(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Breed', style: theme.textTheme.titleMedium),
-                        Text('The main breed!',
-                            style: theme.textTheme.bodyMedium),
-                      ],
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.tightFor(width: 200),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Breed', style: theme.textTheme.titleMedium),
+                          Text(
+                            'The main breed!',
+                            style: theme.textTheme.bodyMedium,
+                            softWrap: true,
+                          ),
+                        ],
+                      ),
                     ),
                     const Spacer(),
                     const MainBreedDropdown()
@@ -87,14 +97,14 @@ class MyHomePage extends ConsumerWidget {
               SliverToBoxAdapter(
                 child: Row(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Sub-breed',
-                          style: theme.textTheme.titleMedium,
-                        ),
-                      ],
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.tightFor(width: 200),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Sub-breed', style: theme.textTheme.titleMedium),
+                        ],
+                      ),
                     ),
                     const Spacer(),
                     const SubBreedDropdown(),
