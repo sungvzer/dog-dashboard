@@ -1,13 +1,17 @@
 import 'package:dog_dashboard/components/breed_dropdown.dart';
 import 'package:dog_dashboard/components/view_mode_selector.dart';
+import 'package:dog_dashboard/models/view_mode.dart';
+import 'package:dog_dashboard/providers/dogs/breeds_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final imageProvider = ref.watch(fetchImageDataProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -17,9 +21,20 @@ class MyHomePage extends StatelessWidget {
             'DoggieDash',
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-        ),
+        floatingActionButton: imageProvider.viewMode == ViewMode.single
+            ? FloatingActionButton(
+                onPressed: () {
+                  ref.read(fetchImageDataProvider.notifier).state =
+                      FetchImageData(
+                    breed: imageProvider.breed,
+                    subBreed: imageProvider.subBreed,
+                    viewMode: imageProvider.viewMode,
+                  );
+                },
+                backgroundColor: theme.colorScheme.primary,
+                child: const Icon(Icons.refresh_rounded, color: Colors.white),
+              )
+            : null,
         body: Padding(
           padding: const EdgeInsets.all(15),
           child: ListView(
