@@ -1,4 +1,5 @@
 import 'package:dog_dashboard/components/breed_dropdown.dart';
+import 'package:dog_dashboard/components/image_viewer.dart';
 import 'package:dog_dashboard/components/view_mode_selector.dart';
 import 'package:dog_dashboard/models/view_mode.dart';
 import 'package:dog_dashboard/providers/dogs/breeds_provider.dart';
@@ -37,59 +38,75 @@ class MyHomePage extends ConsumerWidget {
             : null,
         body: Padding(
           padding: const EdgeInsets.all(15),
-          child: ListView(
-            children: [
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('View mode', style: theme.textTheme.titleMedium),
-                      Text(
-                        'Choose between single and multiple images',
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const ViewModeSelector(),
-                ],
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('View mode', style: theme.textTheme.titleMedium),
+                        Text(
+                          'Choose between single and multiple images',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const ViewModeSelector(),
+                  ],
+                ),
               ),
-              const SizedBox(
-                height: 20,
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
               ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Breed', style: theme.textTheme.titleMedium),
-                      Text('The main breed!',
-                          style: theme.textTheme.bodyMedium),
-                    ],
-                  ),
-                  const Spacer(),
-                  const MainBreedDropdown()
-                ],
+              SliverToBoxAdapter(
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Breed', style: theme.textTheme.titleMedium),
+                        Text('The main breed!',
+                            style: theme.textTheme.bodyMedium),
+                      ],
+                    ),
+                    const Spacer(),
+                    const MainBreedDropdown()
+                  ],
+                ),
               ),
-              const SizedBox(
-                height: 20,
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
               ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sub-breed',
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const SubBreedDropdown(),
-                ],
+              SliverToBoxAdapter(
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Sub-breed',
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const SubBreedDropdown(),
+                  ],
+                ),
               ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
+              ),
+              const DogImageViewer(),
             ],
           ),
         ),
